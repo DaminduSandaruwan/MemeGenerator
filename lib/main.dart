@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,6 +28,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  String headerText="";
+  String footerText="";
+
+  File _image;
+  File _imageFile;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +66,27 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w900
               ),
             ),
-            
+            Stack(
+              children: <Widget>[
+                _image != null 
+                ? Image.file(
+                  _image,
+                  height: 300,
+                ) 
+                : Container(),
+              // Container(
+              //   padding: EdgeInsets.symmetric(vertical:12),
+              //   child: Column(
+              //     children: <Widget>[
+              //       Text(headerText),
+              //       Spacer(),
+              //       Text(footerText),                     
+              //     ],
+              //   ),
+              // ),
+              ],
+            ),
+            SizedBox(height: 20,),
           ],
         ),
       ),
