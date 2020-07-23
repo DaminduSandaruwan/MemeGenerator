@@ -87,9 +87,38 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 20,),
+            TextField(
+              onChanged: (val){
+                headerText=val;
+              },
+              decoration: InputDecoration(
+                helperText: "Header Text",
+              ),
+            ),
+            SizedBox(height: 12,),
+            TextField(
+              onChanged: (val){
+                headerText=val;
+              },
+              decoration: InputDecoration(
+                helperText: "Footer Text",
+              ),
+            ),
+            RaisedButton(
+              onPressed: (){
+                takeScreenshot();
+              },
+              child: Text(
+                "Save",
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  takeScreenshot(){
+
   }
 }
