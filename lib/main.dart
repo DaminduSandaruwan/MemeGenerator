@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -44,7 +45,28 @@ class _HomePageState extends State<HomePage> {
   File _image;
   File _imageFile;
 
+  bool imageSelected = false;
+
   Random rng = new Random();
+
+  Future getImage() async{
+    var image;
+    try{
+      image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    }
+    catch(platformException){
+      print("not allowing"+platformException);
+    }
+    setState(() {
+      if(image != null){
+        imageSelected = true;
+      }
+      else{
+
+      }
+      _image=image;
+    });
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -101,30 +123,37 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 20,),
-            TextField(
-              onChanged: (val){
-                headerText=val;
-              },
-              decoration: InputDecoration(
-                helperText: "Header Text",
-              ),
-            ),
-            SizedBox(height: 12,),
-            TextField(
-              onChanged: (val){
-                headerText=val;
-              },
-              decoration: InputDecoration(
-                helperText: "Footer Text",
-              ),
-            ),
-            RaisedButton(
-              onPressed: (){
-                takeScreenshot();
-              },
-              child: Text(
-                "Save",
-              ),
+            imageSelected ? Column(
+              children: <Widget>[
+                TextField(
+                  onChanged: (val){
+                    headerText=val;
+                  },
+                  decoration: InputDecoration(
+                    helperText: "Header Text",
+                  ),
+                ),
+                SizedBox(height: 12,),
+                TextField(
+                  onChanged: (val){
+                    headerText=val;
+                  },
+                  decoration: InputDecoration(
+                    helperText: "Footer Text",
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: (){
+                    takeScreenshot();
+                  },
+                  child: Text(
+                    "Save",
+                  ),
+                ),
+              ],
+            ) 
+            : Container(
+
             ),
           ],
         ),
