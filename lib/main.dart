@@ -1,6 +1,11 @@
 import 'dart:io';
-
+import 'dart:math';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,11 +34,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final GlobalKey globalKey = new GlobalKey();
+
   String headerText="";
   String footerText="";
 
   File _image;
   File _imageFile;
+
+  Random rng = new Random();
  
   @override
   Widget build(BuildContext context) {
@@ -66,25 +75,28 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w900
               ),
             ),
-            Stack(
-              children: <Widget>[
-                _image != null 
-                ? Image.file(
-                  _image,
-                  height: 300,
-                ) 
-                : Container(),
-              // Container(
-              //   padding: EdgeInsets.symmetric(vertical:12),
-              //   child: Column(
-              //     children: <Widget>[
-              //       Text(headerText),
-              //       Spacer(),
-              //       Text(footerText),                     
-              //     ],
-              //   ),
-              // ),
-              ],
+            RepaintBoundary(
+              key: globalKey,
+              child: Stack(
+                children: <Widget>[
+                  _image != null 
+                  ? Image.file(
+                    _image,
+                    height: 300,
+                  ) 
+                  : Container(),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical:12),
+                  child: Column(
+                    children: <Widget>[
+                      Text(headerText),
+                      Spacer(),
+                      Text(footerText),                     
+                    ],
+                  ),
+                ),
+                ],
+              ),
             ),
             SizedBox(height: 20,),
             TextField(
@@ -118,7 +130,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  takeScreenshot(){
+  takeScreenshot()async{
+    RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage();
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    print(pngBytes);
+    File imgFile = new File('$directory/screenshot${rng.nextInt(200)}.png');
+    setState(() {
+      _imageFile = imgFile;
+    });
+    _savefile(_imageFile);
+    imgFile.writeAsBytes(pngBytes);
+  }
+
+  _savefile(File file){
 
   }
 }
