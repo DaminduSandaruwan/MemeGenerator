@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   File _image;
   File _imageFile;
 
-  bool imageSelected = false;
+  bool imageSelected = true;
 
   Random rng = new Random();
 
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
             Center(
               child: Image.asset(
                 "assets/homelogo.png",
-                height: 150,
-                width: 150,
+                height: 100,
+                width: 100,
               ),
             ),
             SizedBox(height: 12,),
@@ -106,11 +106,12 @@ class _HomePageState extends State<HomePage> {
                   _image != null 
                   ? Image.file(
                     _image,
-                    height: 300,
+                    height: 50,
                   ) 
                   : Container(),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical:12),
+                  height: 50,
+                  padding: EdgeInsets.symmetric(vertical:10),
                   child: Column(
                     children: <Widget>[
                       Text(headerText),
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                     helperText: "Header Text",
                   ),
                 ),
-                SizedBox(height: 12,),
+                SizedBox(height: 10,),
                 TextField(
                   onChanged: (val){
                     headerText=val;
@@ -172,17 +173,17 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _imageFile = imgFile;
     });
-    _savefile(_imageFile);
+    //_savefile(_imageFile);
     imgFile.writeAsBytes(pngBytes);
   }
 
-  _savefile(File file)async{
-    await _askPermission();
-    final result = await ImageGallerySaver.saveImage(
-      Uint8List.fromList(await file.readAsBytes())
-    );
-    print(result);
-  }
+  // _savefile(File file)async{
+  //   await _askPermission();
+  //   final result = await ImageGallerySaver.saveImage(
+  //     Uint8List.fromList(await file.readAsBytes())
+  //   );
+  //   print(result);
+  // }
 
   _askPermission()async{
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.photos]);
