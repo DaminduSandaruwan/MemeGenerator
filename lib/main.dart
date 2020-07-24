@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-// import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -173,17 +173,17 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _imageFile = imgFile;
     });
-    //_savefile(_imageFile);
+    _savefile(_imageFile);
     imgFile.writeAsBytes(pngBytes);
   }
 
-  // _savefile(File file)async{
-  //   await _askPermission();
-  //   final result = await ImageGallerySaver.saveImage(
-  //     Uint8List.fromList(await file.readAsBytes())
-  //   );
-  //   print(result);
-  // }
+  _savefile(File file)async{
+    await _askPermission();
+    final result = await ImageGallerySaver.saveImage(
+      Uint8List.fromList(await file.readAsBytes())
+    );
+    print(result);
+  }
 
   _askPermission()async{
     Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.photos]);
