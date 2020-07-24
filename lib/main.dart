@@ -76,31 +76,35 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 30,),
-              Center(
-                child: Image.asset(
-                  "assets/homelogo.png",
-                  height: 75,
-                  width: 75,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/homelogo.png",
+                    height: 75,
+                    width: 75,
+                  ),
+                  SizedBox(width: 12,),
+                  Text(
+                    "MEME ",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900
+                    ),
+                  ),
+                  Text(
+                    "GENERATOR",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900
+                    ),
+                  ),
+                  SizedBox(width: 15,),
+                ],
               ),
-              SizedBox(height: 12,),
-              Text(
-                "MEME",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900
-                ),
-              ),
-              Text(
-                "GENERATOR",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900
-                ),
-              ),
-              SizedBox(height: 15,),
+              SizedBox(height: 20,),
               RepaintBoundary(
                 key: globalKey,
                 child: Stack(
