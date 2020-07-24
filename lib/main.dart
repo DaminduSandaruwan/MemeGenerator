@@ -154,10 +154,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ) 
             : Container(
-
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add_a_photo),
+        onPressed: (){
+          getImage();
+        },
       ),
     );
   }
