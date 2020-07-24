@@ -99,24 +99,48 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w900
               ),
             ),
+            SizedBox(height: 15,),
             RepaintBoundary(
               key: globalKey,
               child: Stack(
+                alignment: Alignment.center,
                 children: <Widget>[
                   _image != null 
                   ? Image.file(
                     _image,
                     height: 300,
+                    fit: BoxFit.fitHeight,
                   ) 
                   : Container(),
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   height: 300,
-                  padding: EdgeInsets.symmetric(vertical:10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(headerText),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical:12),
+                        child: Text(
+                          headerText.toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
                       Spacer(),
-                      Text(footerText),                     
+                      Container(                        
+                        padding: EdgeInsets.symmetric(vertical:12),
+                        child: Text(
+                          footerText.toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -130,8 +154,7 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (val){
                     setState(() {
                       headerText=val;
-                    });
-                    
+                    });                    
                   },
                   decoration: InputDecoration(
                     helperText: "Header Text",
