@@ -127,6 +127,7 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 26,
                             fontWeight: FontWeight.w700,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       Spacer(),
@@ -139,6 +140,7 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 26,
                             fontWeight: FontWeight.w700,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -148,44 +150,49 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 20,),
-            imageSelected ? Column(
-              children: <Widget>[
-                TextField(
-                  onChanged: (val){
-                    setState(() {
-                      headerText=val;
-                    });                    
-                  },
-                  decoration: InputDecoration(
-                    helperText: "Header Text",
+            imageSelected ? Container(
+              padding: EdgeInsets.symmetric(horizontal:20),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    onChanged: (val){
+                      setState(() {
+                        headerText=val;
+                      });                    
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Header Text",
+                    ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                TextField(
-                  onChanged: (val){
-                    setState(() {
-                      footerText=val;                      
-                    });
-                  },
-                  decoration: InputDecoration(
-                    helperText: "Footer Text",
+                  SizedBox(height: 10,),
+                  TextField(
+                    onChanged: (val){
+                      setState(() {
+                        footerText=val;                      
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Footer Text",
+                    ),
                   ),
-                ),
-                RaisedButton(
-                  onPressed: (){
-                    takeScreenshot();
-                  },
-                  child: Text(
-                    "Save",
+                  SizedBox(height: 10,),
+                  RaisedButton(
+                    onPressed: (){
+                      takeScreenshot();
+                    },
+                    child: Text(
+                      "Save",
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ) 
             : Container(
               child: Center(
                 child: Text("Select an image to get started"),
               ),
             ),
+            _imageFile != null ? Image.file(_imageFile) : Container(),
           ],
         ),
       ),
