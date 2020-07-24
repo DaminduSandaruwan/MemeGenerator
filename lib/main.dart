@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   File _image;
   File _imageFile;
 
-  bool imageSelected = true;
+  bool imageSelected = false;
 
   Random rng = new Random();
 
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
             Center(
               child: Image.asset(
                 "assets/homelogo.png",
-                height: 100,
-                width: 100,
+                height: 75,
+                width: 75,
               ),
             ),
             SizedBox(height: 12,),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               "MEME",
               style: TextStyle(
                 color: Colors.red,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.w900
               ),
             ),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
               "GENERATOR",
               style: TextStyle(
                 color: Colors.red,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.w900
               ),
             ),
@@ -106,11 +106,11 @@ class _HomePageState extends State<HomePage> {
                   _image != null 
                   ? Image.file(
                     _image,
-                    height: 50,
+                    height: 300,
                   ) 
                   : Container(),
                 Container(
-                  height: 50,
+                  height: 300,
                   padding: EdgeInsets.symmetric(vertical:10),
                   child: Column(
                     children: <Widget>[
@@ -128,7 +128,10 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 TextField(
                   onChanged: (val){
-                    headerText=val;
+                    setState(() {
+                      headerText=val;
+                    });
+                    
                   },
                   decoration: InputDecoration(
                     helperText: "Header Text",
@@ -137,7 +140,9 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 10,),
                 TextField(
                   onChanged: (val){
-                    headerText=val;
+                    setState(() {
+                      footerText=val;                      
+                    });
                   },
                   decoration: InputDecoration(
                     helperText: "Footer Text",
@@ -154,6 +159,9 @@ class _HomePageState extends State<HomePage> {
               ],
             ) 
             : Container(
+              child: Center(
+                child: Text("Select an image to get started"),
+              ),
             ),
           ],
         ),
